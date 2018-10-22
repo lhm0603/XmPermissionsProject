@@ -34,7 +34,7 @@ dependencies {
 
 如果你仅仅是想把所有需要动态申请的权限开启，那么您只需要简单使用 EasyPermissionsActivity 即可。
 
-在AndroidMainifest.xml 文件中加入你的应用程序需要使用到的权限，（）
+在AndroidMainifest.xml 文件中加入你的应用程序需要使用到的权限
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
