@@ -91,9 +91,9 @@ public class MainActivity extends EasyPermissionsActivity {
 
 > 注意：
 >
-> ​	如果一个应用程序先前已经请求并被授予 READ_EXTERNAL_STORAGE 权限，然后它再请求READ_EXTERNAL_STORAGE (同属于 STORAGE 权限组)，系统会立即授予该权限，不会再弹出权限授予询问的对话框。
+> ​	如果一个应用程序先前已经请求并被授予 READ_EXTERNAL_STORAGE 权限，然后它再请求READ_EXTERNAL_STORAGE (同属于 STORAGE 权限组)，系统会立即授予该权限，不会再弹出权限授予询问的对话框。当然，着您不需要操心，EasyPermissionsActivity 已经帮您都做好了。
 >
-> 如果您还不清楚您申请的权限属于哪个组，可以查阅 EasyPermissionActivity 源码，我里面有将每个权限组的权限列出来。或者您也可以翻阅 [google API](https://developer.android.com/guide/topics/permissions/requesting.html#normal-dangerous) 。
+> 如果您不清楚哪个权限属于哪个组，可以查阅 EasyPermissionsActivity 源码，我里面有将每个权限组的权限列出来。或者您也可以翻阅 [google API](https://developer.android.com/guide/topics/permissions/requesting.html#normal-dangerous) 。
 
 ### 添加权限需求描述
 
@@ -124,7 +124,7 @@ super.updatePermissionGroupName(EasyPermissionActivity.LOCATION, "位置信息")
 super.requestPermissions();
 ```
 
-### 无限(必须)请求权限，知道所有权限都通过
+### 无限(必须)请求权限，直到所有权限都通过
 
 如果你的 App 需要获取所有权限后方可运行，则您可以在`super.requestPermissions();` 之前，调用 `super.isRequestAgain(true);` 方法 开启无限模式（即：没有取消按钮，只有所有权限都被允许后才会调用 `onRequiresPermissionsAfter`）。
 
