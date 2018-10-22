@@ -91,7 +91,7 @@ public class MainActivity extends EasyPermissionsActivity {
 
 > 注意：
 >
-> ​	如果一个应用程序先前已经请求并被授予 READ_EXTERNAL_STORAGE 权限，然后它再请求READ_EXTERNAL_STORAGE (同属于 STORAGE 权限组)，系统会立即授予该权限，不会再弹出权限授予询问的对话框。当然，着您不需要操心，EasyPermissionsActivity 已经帮您都做好了。
+> ​	如果一个应用程序先前已经请求并被授予 READ_EXTERNAL_STORAGE 权限，然后它再请求READ_EXTERNAL_STORAGE (同属于 STORAGE 权限组)，系统会立即授予该权限，不会再弹出权限授予询问的对话框。当然，这您不需要操心，EasyPermissionsActivity 已经帮您都做好了。
 >
 > 如果您不清楚哪个权限属于哪个组，可以查阅 EasyPermissionsActivity 源码，我里面有将每个权限组的权限列出来。或者您也可以翻阅 [google API](https://developer.android.com/guide/topics/permissions/requesting.html#normal-dangerous) 。
 
