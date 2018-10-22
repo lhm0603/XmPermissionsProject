@@ -11,7 +11,7 @@ EasyPermissionsActivity 支持 Android 4.0及更高版本，但只有在 Android
 
 ### 引入 EasyPermissionsActivity
 
-这里告诉你如何在项目中引入 EasyPermissionsActivity.
+这里告诉你如何在项目中引入 EasyPermissionsActivity
 
 #### 使用 Android Studio 或者其他 Gradle 构建的项目
 
@@ -32,9 +32,10 @@ dependencies {
 
 在AndroidMainifest.xml 文件中加入你的应用程序需要使用到的权限，（）
 
-```xml-dtd
+```xml
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.lin.example.epa"      				xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest package="com.lin.example.epa"      				
+	xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
