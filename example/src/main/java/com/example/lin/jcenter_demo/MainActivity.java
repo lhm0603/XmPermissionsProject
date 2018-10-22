@@ -7,6 +7,8 @@ import com.lhm.easypermissionsactivity.EasyPermissionsActivity;
 
 public class MainActivity extends EasyPermissionsActivity {
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

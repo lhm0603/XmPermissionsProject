@@ -26,7 +26,9 @@ dependencies {
 
 ### 使用 EasyPermissionsActivity
 
-![](http://ojx4zwltq.bkt.clouddn.com/20181022154755.png)
+<img src="http://ojx4zwltq.bkt.clouddn.com/20181022154755.png" width="33%" />
+
+
 
 如果你仅仅是想把所有需要动态申请的权限开启，那么您只需要简单使用 EasyPermissionsActivity 即可。
 
@@ -65,15 +67,6 @@ public class MainActivity extends EasyPermissionsActivity {
 你一定关心权限申请成功或者失败的回调方法，很简单，你可以在 EasyPermissionsActivity 的派生类中重写以下方法
 
 ```java
-public class MainActivity extends EasyPermissionsActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        //开始请求权限
-        super.requestPermissions();
-    }
-
     @Override
     protected void onRequestPermissionsBefore() {
         //权限请求之前,该方法被调用
@@ -94,7 +87,6 @@ public class MainActivity extends EasyPermissionsActivity {
             //do something...
         }
     }
-}
 ```
 
 > 注意：
@@ -105,7 +97,7 @@ public class MainActivity extends EasyPermissionsActivity {
 
 ### 添加权限需求描述
 
-![](http://ojx4zwltq.bkt.clouddn.com/20181022160948.png)
+<img src="http://ojx4zwltq.bkt.clouddn.com/20181022160948.png" width="33%" />
 
 在 `super.requestPermissions();` 之前，使用 `super.addPermissionGroupDescription(@PermissionGroup String permissionGroup, String description)` 方法 添加权限用途描述
 
@@ -120,7 +112,7 @@ super.requestPermissions();
 
 ### 修改权限提示名称
 
-![](http://ojx4zwltq.bkt.clouddn.com/20181022161007.png)
+<img src="http://ojx4zwltq.bkt.clouddn.com/20181022161007.png" width="33%" />
 
 如果您有更好的权限提示名称，可以在`super.requestPermissions();` 之前，调用 `updatePermissionGroupName(@PermissionGroup String permissionGroup, String name)` 方法 进行修改
 
