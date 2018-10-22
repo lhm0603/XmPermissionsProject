@@ -47,14 +47,14 @@ public abstract class EasyPermissionActivity extends AppCompatActivity {
      * This is {@link Manifest.permission_group#CAMERA} Group,
      * Group permissions contains {@link Manifest.permission#CAMERA}
      */
-    public static final String CAMERA = Manifest.permission_group.CAMERA;
+    protected static final String CAMERA = Manifest.permission_group.CAMERA;
     /**
      * This is {@link Manifest.permission_group#CALENDAR} Group,
      * Group permissions contains
      * {@link Manifest.permission#READ_CALENDAR},
      * {@link Manifest.permission#WRITE_CALENDAR}
      */
-    public static final String CALENDAR = Manifest.permission_group.CALENDAR;
+    protected static final String CALENDAR = Manifest.permission_group.CALENDAR;
     /**
      * This is {@link Manifest.permission_group#CONTACTS} Group,
      * Group permissions contains
@@ -62,21 +62,21 @@ public abstract class EasyPermissionActivity extends AppCompatActivity {
      * {@link Manifest.permission#WRITE_CONTACTS},
      * {@link Manifest.permission#GET_ACCOUNTS}
      */
-    public static final String CONTACTS = Manifest.permission_group.CONTACTS;
+    protected static final String CONTACTS = Manifest.permission_group.CONTACTS;
     /**
      * This is {@link Manifest.permission_group#STORAGE} Group,
      * Group permissions contains
      * {@link Manifest.permission#WRITE_EXTERNAL_STORAGE},
      * {@link Manifest.permission#READ_EXTERNAL_STORAGE}
      */
-    public static final String STORAGE = Manifest.permission_group.STORAGE;
+    protected static final String STORAGE = Manifest.permission_group.STORAGE;
     /**
      * This is {@link Manifest.permission_group#LOCATION} Group,
      * Group permissions contains
      * {@link Manifest.permission#ACCESS_FINE_LOCATION},
      * {@link Manifest.permission#ACCESS_COARSE_LOCATION}
      */
-    public static final String LOCATION = Manifest.permission_group.LOCATION;
+    protected static final String LOCATION = Manifest.permission_group.LOCATION;
     /**
      * This is {@link Manifest.permission_group#SMS} Group,
      * Group permissions contains
@@ -86,7 +86,7 @@ public abstract class EasyPermissionActivity extends AppCompatActivity {
      * {@link Manifest.permission#RECEIVE_MMS},
      * {@link Manifest.permission#RECEIVE_WAP_PUSH}
      */
-    public static final String SMS = Manifest.permission_group.SMS;
+    protected static final String SMS = Manifest.permission_group.SMS;
     /**
      * This is {@link Manifest.permission_group#PHONE} Group,
      * Group permissions contains
@@ -98,20 +98,20 @@ public abstract class EasyPermissionActivity extends AppCompatActivity {
      * {@link Manifest.permission#USE_SIP},
      * {@link Manifest.permission#PROCESS_OUTGOING_CALLS}
      */
-    public static final String PHONE = Manifest.permission_group.PHONE;
+    protected static final String PHONE = Manifest.permission_group.PHONE;
 
     /**
      * This is {@link Manifest.permission_group#SENSORS} Group,
      * Group permissions contains
      * {@link Manifest.permission#BODY_SENSORS}
      */
-    public static final String SENSORS = Manifest.permission_group.SENSORS;
+    protected static final String SENSORS = Manifest.permission_group.SENSORS;
     private String[] allDefinitionPermissions;
 
 
     @StringDef({CAMERA, CALENDAR, CONTACTS, STORAGE, LOCATION, SMS, PHONE, SENSORS})
     @Retention(RetentionPolicy.SOURCE)
-    public @interface PermissionGroup {
+    @interface PermissionGroup {
 
     }
 
@@ -291,7 +291,7 @@ public abstract class EasyPermissionActivity extends AppCompatActivity {
 
     }
 
-    protected void requestPermissions() {
+    protected final void requestPermissions() {
         requiresPermissionsBefore();
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
             if (allDefinitionPermissions == null || allDefinitionPermissions.length == 0) {
@@ -302,9 +302,7 @@ public abstract class EasyPermissionActivity extends AppCompatActivity {
             final String[] permissions = allDefinitionPermissions;
 
             final String[] needRequestPermissions = hasPermissions(this, permissions);
-
-
-            if (needRequestPermissions != null && needRequestPermissions.length > 0) {
+            if (needRequestPermissions.length > 0) {
                 // 请求还有未拥有的权限
                 new AlertDialog.Builder(this)
                         .setTitle(R.string.hint)
@@ -400,8 +398,8 @@ public abstract class EasyPermissionActivity extends AppCompatActivity {
      *
      * @see Manifest.permission
      */
-    public String[] hasPermissions(@NonNull Context context,
-                                   @Size(min = 1) @NonNull String... perms) {
+    private String[] hasPermissions(@NonNull Context context,
+                                    @Size(min = 1) @NonNull String... perms) {
         ArrayList<String> list = new ArrayList<>();
         for (String perm : perms) {
             if (ContextCompat.checkSelfPermission(context, perm)
@@ -432,7 +430,7 @@ public abstract class EasyPermissionActivity extends AppCompatActivity {
     }
 
 
-    public final void onPermissionsGranted() {
+    private void onPermissionsGranted() {
         requiresPermissionsAfter(true);
     }
 
@@ -446,7 +444,7 @@ public abstract class EasyPermissionActivity extends AppCompatActivity {
         return false;
     }
 
-    public final void onPermissionsDenied(int requestCode, @NonNull List<String> list) {
+    private void onPermissionsDenied(int requestCode, @NonNull List<String> list) {
         if (requestCode == REQUEST_PERMISSION_REQUEST_CODE) {
             // 还有被拒绝的权限...
             if (somePermissionPermanentlyDenied(list)) {

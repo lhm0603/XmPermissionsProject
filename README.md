@@ -1,37 +1,49 @@
 # EasyPermissionsActivity
 
-#### 项目介绍
+## 项目介绍
 超级简单的 Android6.0动态权限申请程序
 
-#### 软件架构
-软件架构说明
+### 使用说明
 
+EasyPermissionsActivity 支持 Android 4.0及更高版本，但只有在 Android6.0动态权限 Api 才有效。
 
-#### 安装教程
+## 开始使用
 
-1. xxxx
-2. xxxx
-3. xxxx
+### 引入 EasyPermissionsActivity
 
-#### 使用说明
+这里告诉你如何在项目中引入 Fresco.
 
-1. xxxx
-2. xxxx
-3. xxxx
+#### 使用 Android Studio 或者其他 Gradle 构建的项目
 
-#### 参与贡献
+如果您使用Gradle构建，只需将以下行添加到文件的`dependencies`部分`build.gradle`：
 
-1. Fork 本项目
-2. 新建 Feat_xxx 分支
-3. 提交代码
-4. 新建 Pull Request
+```groovy
+dependencies {
+    //其他依赖
+	implementation 'com.github.lhm:easypermissionsactivity:1.0.4'
+}
+```
 
+### 使用 EasyPermissionsActivity
 
-#### 码云特技
+如果你仅仅是想把所有需要动态申请的权限开启，那么您只需要简单使用 EasyPermissionsActivity 即可。
 
-1. 使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2. 码云官方博客 [blog.gitee.com](https://blog.gitee.com)
-3. 你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解码云上的优秀开源项目
-4. [GVP](https://gitee.com/gvp) 全称是码云最有价值开源项目，是码云综合评定出的优秀开源项目
-5. 码云官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6. 码云封面人物是一档用来展示码云会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+在您需要动态权限申请的 AppCompatActivity 中，让该 AppCompatActivity 继承 EasyPermissionActivity 。然后在需要动态权限申请的时刻，调用 super.
+
+#### 许可证
+
+```
+Copyright 2018 Huaming Lin.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```

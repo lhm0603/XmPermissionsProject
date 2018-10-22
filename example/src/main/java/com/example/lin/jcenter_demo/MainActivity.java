@@ -17,7 +17,7 @@ public class MainActivity extends EasyPermissionActivity {
         //开启无限请求权限模式
         isRequestAgain(true);
         //开始请求权限
-        requestPermissions();
+        super.requestPermissions();
     }
 
     @Override
