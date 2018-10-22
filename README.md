@@ -11,7 +11,7 @@ EasyPermissionsActivity 支持 Android 4.0及更高版本，但只有在 Android
 
 ### 引入 EasyPermissionsActivity
 
-这里告诉你如何在项目中引入 Fresco.
+这里告诉你如何在项目中引入 EasyPermissionsActivity.
 
 #### 使用 Android Studio 或者其他 Gradle 构建的项目
 
