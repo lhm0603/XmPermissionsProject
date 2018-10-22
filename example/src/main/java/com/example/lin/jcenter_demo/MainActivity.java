@@ -3,17 +3,19 @@ package com.example.lin.jcenter_demo;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.lhm.easypermissionsactivity.EasyPermissionActivity;
+import com.lhm.easypermissionsactivity.EasyPermissionsActivity;
 
-public class MainActivity extends EasyPermissionActivity {
+public class MainActivity extends EasyPermissionsActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //添加存储权限使用用途描述
-        addPermissionGroupDescription(STORAGE, "下载书籍,节省流量!");
-        addPermissionGroupDescription(LOCATION, "下载书籍,节省流量!");
-        addPermissionGroupDescription(PHONE, "下载书籍,节省流量!");
+        super.addPermissionGroupDescription(EasyPermissionsActivity.STORAGE, "下载书籍，节省流量。");
+        super.addPermissionGroupDescription(EasyPermissionsActivity.LOCATION, "获取位置信息，智能推荐。");
+        super.addPermissionGroupDescription(EasyPermissionsActivity.PHONE, "检验IMEI码，保证账号安全，防止账号被盗。");
+        super.updatePermissionGroupName(EasyPermissionsActivity.STORAGE, "文件存储");
+        super.updatePermissionGroupName(EasyPermissionsActivity.LOCATION, "位置信息");
         //开启无限请求权限模式
         isRequestAgain(true);
         //开始请求权限
@@ -21,7 +23,7 @@ public class MainActivity extends EasyPermissionActivity {
     }
 
     @Override
-    protected void requiresPermissionsBefore() {
+    protected void onRequestPermissionsBefore() {
         //权限请求之前,该方法被调用
     }
 
@@ -31,7 +33,7 @@ public class MainActivity extends EasyPermissionActivity {
      * @param success true 成功/ false失败
      */
     @Override
-    protected void requiresPermissionsAfter(boolean success) {
+    protected void onRequestPermissionsAfter(boolean success) {
         if (success) {
             setContentView(R.layout.activity_main);
             //do something...

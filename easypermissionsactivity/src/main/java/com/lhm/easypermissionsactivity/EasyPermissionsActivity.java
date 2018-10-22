@@ -41,7 +41,7 @@ import java.util.Map;
 import static android.content.pm.PackageManager.GET_PERMISSIONS;
 
 @TargetApi(Build.VERSION_CODES.M)
-public abstract class EasyPermissionActivity extends AppCompatActivity {
+public abstract class EasyPermissionsActivity extends AppCompatActivity {
 
     /**
      * This is {@link Manifest.permission_group#CAMERA} Group,
@@ -106,8 +106,9 @@ public abstract class EasyPermissionActivity extends AppCompatActivity {
      * {@link Manifest.permission#BODY_SENSORS}
      */
     protected static final String SENSORS = Manifest.permission_group.SENSORS;
-    private String[] allDefinitionPermissions;
 
+
+    private String[] allDefinitionPermissions;
 
     @StringDef({CAMERA, CALENDAR, CONTACTS, STORAGE, LOCATION, SMS, PHONE, SENSORS})
     @Retention(RetentionPolicy.SOURCE)
@@ -115,10 +116,10 @@ public abstract class EasyPermissionActivity extends AppCompatActivity {
 
     }
 
-    protected void addPermissionGroupDescription(@PermissionGroup String permissionGroup, String decription) {
+    protected void addPermissionGroupDescription(@PermissionGroup String permissionGroup, String description) {
         PermissionInfo permissionInfo = infoMap.get(permissionGroup);
         if (permissionInfo != null)
-            permissionInfo.permissionDescription = decription;
+            permissionInfo.permissionDescription = description;
         showPermissionDescription = true;
     }
 
@@ -149,14 +150,6 @@ public abstract class EasyPermissionActivity extends AppCompatActivity {
 
     private boolean showPermissionDescription;
 
-
-    /**
-     * 是否显示 权限描述
-     */
-    protected void showPermissionDescription(boolean showPermissionDescription) {
-        this.showPermissionDescription = showPermissionDescription;
-    }
-
     private class PermissionInfo {
 
         String permissionName;
@@ -168,7 +161,7 @@ public abstract class EasyPermissionActivity extends AppCompatActivity {
 
     }
 
-    private static Map<String, PermissionInfo> infoMap = null;
+    private Map<String, PermissionInfo> infoMap = null;
 
     /**
      * 初始化
@@ -176,14 +169,14 @@ public abstract class EasyPermissionActivity extends AppCompatActivity {
     private void initRequestPermissions() {
         if (infoMap == null) {
             infoMap = new HashMap<>(8);
-            infoMap.put(EasyPermissionActivity.CALENDAR, new PermissionInfo(getResources().getString(R.string.calendarPermission)));
-            infoMap.put(EasyPermissionActivity.CAMERA, new PermissionInfo(getResources().getString(R.string.cameraPermission)));
-            infoMap.put(EasyPermissionActivity.CONTACTS, new PermissionInfo(getResources().getString(R.string.contactsPermission)));
-            infoMap.put(EasyPermissionActivity.PHONE, new PermissionInfo(getResources().getString(R.string.phonePermission)));
-            infoMap.put(EasyPermissionActivity.LOCATION, new PermissionInfo(getResources().getString(R.string.locationPermission)));
-            infoMap.put(EasyPermissionActivity.SENSORS, new PermissionInfo(getResources().getString(R.string.sensorsPermission)));
-            infoMap.put(EasyPermissionActivity.SMS, new PermissionInfo(getResources().getString(R.string.smsPermission)));
-            infoMap.put(EasyPermissionActivity.STORAGE, new PermissionInfo(getResources().getString(R.string.storagePermission)));
+            infoMap.put(EasyPermissionsActivity.CALENDAR, new PermissionInfo(getResources().getString(R.string.calendarPermission)));
+            infoMap.put(EasyPermissionsActivity.CAMERA, new PermissionInfo(getResources().getString(R.string.cameraPermission)));
+            infoMap.put(EasyPermissionsActivity.CONTACTS, new PermissionInfo(getResources().getString(R.string.contactsPermission)));
+            infoMap.put(EasyPermissionsActivity.PHONE, new PermissionInfo(getResources().getString(R.string.phonePermission)));
+            infoMap.put(EasyPermissionsActivity.LOCATION, new PermissionInfo(getResources().getString(R.string.locationPermission)));
+            infoMap.put(EasyPermissionsActivity.SENSORS, new PermissionInfo(getResources().getString(R.string.sensorsPermission)));
+            infoMap.put(EasyPermissionsActivity.SMS, new PermissionInfo(getResources().getString(R.string.smsPermission)));
+            infoMap.put(EasyPermissionsActivity.STORAGE, new PermissionInfo(getResources().getString(R.string.storagePermission)));
         }
         if (allDefinitionPermissions == null)
             allDefinitionPermissions = allDefinitionPermissions();
@@ -280,23 +273,23 @@ public abstract class EasyPermissionActivity extends AppCompatActivity {
     /**
      * 权限申请成功后.继续 onCreate 的生命周期流程
      */
-    protected void requiresPermissionsBefore() {
+    protected void onRequestPermissionsBefore() {
 
     }
 
     /**
      * 权限申请成功后.继续 onCreate 的生命周期流程
      */
-    protected void requiresPermissionsAfter(boolean success) {
+    protected void onRequestPermissionsAfter(boolean success) {
 
     }
 
     protected final void requestPermissions() {
-        requiresPermissionsBefore();
+        onRequestPermissionsBefore();
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
             if (allDefinitionPermissions == null || allDefinitionPermissions.length == 0) {
                 //不需要申请权限
-                requiresPermissionsAfter(true);
+                onRequestPermissionsAfter(true);
                 return;
             }
             final String[] permissions = allDefinitionPermissions;
@@ -318,11 +311,11 @@ public abstract class EasyPermissionActivity extends AppCompatActivity {
                         .setCancelable(false).show();
             } else {
                 // 已经拥有权限,可以搞事情了
-                requiresPermissionsAfter(true);
+                onRequestPermissionsAfter(true);
             }
         } else {
             // 已经拥有权限,可以搞事情了
-            requiresPermissionsAfter(true);
+            onRequestPermissionsAfter(true);
         }
     }
 
@@ -431,7 +424,7 @@ public abstract class EasyPermissionActivity extends AppCompatActivity {
 
 
     private void onPermissionsGranted() {
-        requiresPermissionsAfter(true);
+        onRequestPermissionsAfter(true);
     }
 
     private boolean somePermissionPermanentlyDenied(@Size(min = 1) List<String> list) {
@@ -469,13 +462,13 @@ public abstract class EasyPermissionActivity extends AppCompatActivity {
 
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            requiresPermissionsAfter(false);
+                            onRequestPermissionsAfter(false);
                         }
                     });
                 }
                 builder.show();
             } else {
-                requiresPermissionsAfter(true);
+                onRequestPermissionsAfter(true);
             }
         }
     }
@@ -500,7 +493,7 @@ public abstract class EasyPermissionActivity extends AppCompatActivity {
             case APP_SETTINGS_RC:
                 if (!isRequestAgain) {
                     // 申请失败!
-                    requiresPermissionsAfter(false);
+                    onRequestPermissionsAfter(false);
                     return;
                 }
                 requestPermissions();
