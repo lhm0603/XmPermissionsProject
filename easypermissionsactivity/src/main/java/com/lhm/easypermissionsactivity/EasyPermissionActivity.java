@@ -40,7 +40,6 @@ import java.util.Map;
 
 import static android.content.pm.PackageManager.GET_PERMISSIONS;
 
-
 @TargetApi(Build.VERSION_CODES.M)
 public abstract class EasyPermissionActivity extends AppCompatActivity {
 
