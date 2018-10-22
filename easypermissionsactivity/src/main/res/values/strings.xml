@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">EasyPermissionsActivity</string>
+
+    <string name="cameraPermission">相机权限</string>
+    <string name="storagePermission">存储权限</string>
+    <string name="calendarPermission">日历权限</string>
+    <string name="contactsPermission">联系人权限</string>
+    <string name="locationPermission">位置权限</string>
+    <string name="phonePermission">电话权限</string>
+    <string name="sensorsPermission">传感器权限</string>
+    <string name="smsPermission">短信权限</string>
+    <string name="hint">提示</string>
+
+    <string name="need_permission_info">需要以下权限才能正常使用</string>
+    <string name="ok">好的</string>
+    <string name="to_open">前往开启</string>
+    <string name="cancle">取消</string>
+    <string name="exit">退出</string>
+
+</resources>

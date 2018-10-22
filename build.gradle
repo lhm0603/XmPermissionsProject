@@ -1,0 +1,46 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+
+    repositories {
+        google()
+        jcenter()
+//        maven{
+//            url 'http://maven.aliyun.com/nexus/content/repositories/central/'
+//        }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.2.0'
+
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
+
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.0.0"
+
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
+
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+//        maven{
+//            url 'http://maven.aliyun.com/nexus/content/repositories/central/'
+//        }
+    }
+
+
+    tasks.withType(Javadoc) {
+        options.addStringOption('Xdoclint:none', '-quiet') //忽略javadoc错误
+        options {
+            encoding "UTF-8"
+            charSet 'UTF-8'
+            links "http://docs.oracle.com/javase/8/docs/api"
+        }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
