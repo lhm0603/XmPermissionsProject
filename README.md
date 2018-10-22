@@ -3,6 +3,10 @@
 ## 项目介绍
 超级简单的 Android6.0动态权限申请程序
 
+Github地址：稍后更新
+
+Gitee 地址：https://gitee.com/hmOS/EasyPermissionsActivity
+
 ### 使用说明
 
 EasyPermissionsActivity 支持 Android 4.0及更高版本，但只有在 Android6.0动态权限 Api 才有效。
