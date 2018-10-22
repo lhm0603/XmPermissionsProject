@@ -32,8 +32,6 @@ dependencies {
 
 <img src="http://ojx4zwltq.bkt.clouddn.com/20181022154755.png" width="33%" />
 
-
-
 如果你仅仅是想把所有需要动态申请的权限开启，那么您只需要简单使用 EasyPermissionsActivity 即可。
 
 在AndroidMainifest.xml 文件中加入你的应用程序需要使用到的权限，（）
