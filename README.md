@@ -3,7 +3,7 @@
 ## 项目介绍
 超级简单的 Android6.0动态权限申请程序
 
-Github地址：稍后更新
+Github地址：https://github.com/lhm0603/EasyPermissionsActivity
 
 Gitee 地址：https://gitee.com/hmOS/EasyPermissionsActivity
 
