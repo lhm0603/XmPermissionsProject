@@ -52,7 +52,7 @@ dependencies {
 </manifest>
 ```
 
-在您需要动态权限申请的 AppCompatActivity 中，让该 AppCompatActivity 继承 EasyPermissionsActivity 。然后在需要动态权限申请的时刻(如:onCreate()方法中)，调用 `super.requestPermissions();` EasyPermissionActivity 会自动帮您完成所有需要动态的权限的申请！
+在您需要动态权限申请的 Activity 中，让该 Activity 继承 EasyPermissionsActivity(继承自AppCompatActivity)，然后在需要动态权限申请的时刻(如:onCreate()方法中)，调用 `super.requestPermissions();` EasyPermissionsActivity 会自动帮您完成所有需要动态的权限的申请！
 
 ```java
 public class MainActivity extends EasyPermissionsActivity {
@@ -93,7 +93,7 @@ public class MainActivity extends EasyPermissionsActivity {
 
 > 注意：
 >
-> ​	如果一个应用程序先前已经请求并被授予 READ_EXTERNAL_STORAGE 权限，然后它再请求READ_EXTERNAL_STORAGE (同属于 STORAGE 权限组)，系统会立即授予该权限，不会再弹出权限授予询问的对话框。当然，这您不需要操心，EasyPermissionsActivity 已经帮您都做好了。
+> ​	如果一个应用程序先前已经请求并被授予 READ_EXTERNAL_STORAGE 权限，然后它再请求WRITE_EXTERNAL_STORAGE (同属于 STORAGE 权限组)，系统会立即授予该权限，不会再弹出权限授予询问的对话框。当然，这您不需要操心，EasyPermissionsActivity 已经帮您都做好了。
 >
 > 如果您不清楚哪个权限属于哪个组，可以查阅 EasyPermissionsActivity 源码，我里面有将每个权限组的权限列出来。或者您也可以翻阅 [google API](https://developer.android.com/guide/topics/permissions/requesting.html#normal-dangerous) 。
 
@@ -141,7 +141,7 @@ super.requestPermissions();
 
 ```java
 
-public class MainActivity extends EasyPermissionActivity {
+public class MainActivity extends EasyPermissionsActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
