@@ -24,7 +24,7 @@ EasyPermissionsActivity 支持 Android 4.0及更高版本，但只有在 Android
 ```groovy
 dependencies {
     //其他依赖
-	implementation 'com.github.lhm:easypermissionsactivity:1.0.4'
+	implementation 'com.github.lhm:easypermissionsactivity:1.0.6'
 }
 ```
 

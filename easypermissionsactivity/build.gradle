@@ -48,20 +48,20 @@ apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
 //项目主页, 项目官网\或者github的主页
-def siteUrl = 'https://github.com/czl0325/ZLDotProgressbar-android'
+def siteUrl = 'https://github.com/lhm0603/EasyPermissionsActivity'
 //项目的版本控制地址,一般 github 的项目地址即可
-def gitUrl = 'https://github.com/czl0325/ZLDotProgressbar-android.git'
+def gitUrl = 'https://github.com/lhm0603/EasyPermissionsActivity.git'
 
 //发布到组织名称名字，必须填写,项目分组
 group = "com.github.lhm"
 
 //发布到JCenter上的项目名字，必须填写
 
-def libName = "Jcenter_Demo"
+def libName = "EasyPermissionActivity"
 
 // 版本号，下次更新是只需要更改版本号即可
 
-version = "1.0.4"
+version = "1.0.6"
 
 /**上面配置后上传至jcenter后的编译路径是这样的：compile 'cn.bluemobi.dylan:sqlitelibrary:1.0'**/
 
@@ -91,7 +91,7 @@ task javadoc(type: Javadoc) {
 
     options.version true
 
-    options.links "https://github.com/linglongxin24/FastDev/tree/master/mylibrary/docs/javadoc"
+    options.links "https://github.com/lhm0603/FastDev/tree/master/easypermissionactivity/docs/javadoc"
 
     failOnError false
 
@@ -141,7 +141,7 @@ install {
 
                 packaging 'aar'
 
-                name 'a dot progressbar framework'
+                name '超级简单的 Android6.0动态权限申请程序'
 
                 url siteUrl
 
@@ -149,7 +149,7 @@ install {
 
                     license {
 
-                        name 'a dot progressbar framework'
+                        name '超级简单的 Android6.0动态权限申请程序'
 
                         url 'https://github.com/czl0325/ZLDotProgressbar-android'
 
@@ -209,7 +209,7 @@ bintray {
 
         name = "EasyPermissionsActivity" //发布到JCenter上的项目名字，必须填写
 
-        desc = 'a dot progressbar framework' //项目描述
+        desc = '超级简单的 Android6.0动态权限申请程序' //项目描述
 
         websiteUrl = siteUrl
 
