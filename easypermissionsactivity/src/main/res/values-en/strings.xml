@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">EasyPermissionsActivity</string>
+    <string name="cameraPermission">Camera permissions</string>
+    <string name="storagePermission">Storage permission</string>
+    <string name="calendarPermission">Calendar permissions</string>
+    <string name="contactsPermission">Contact permissions</string>
+    <string name="locationPermission">Location permission</string>
+    <string name="phonePermission">Phone permissions</string>
+    <string name="sensorsPermission">Sensor authority</string>
+    <string name="smsPermission">SMS permission</string>
+    <string name="hint">prompt</string>
+    <string name="need_permission_info">The following permissions are required for normal use</string>
+    <string name="ok">OK</string>
+    <string name="to_open">Go to open</string>
+    <string name="cancle">Cancel</string>
+    <string name="exit">Exit</string>
+</resources>

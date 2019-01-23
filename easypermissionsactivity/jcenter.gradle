@@ -1,0 +1,153 @@
+/*
+ * *************************************************************************
+ * Copyright (c) 2019
+ * File：jcenter.gradle   Project：MvvmBaseProject  Module：lib_easysp
+ * LastModifiedTime：2019/01/20 23:20
+ * CurrentModifiedTime：2019/01/20 23:25
+ * Author：Lin Hua Ming
+ * Email ： linhuaming@outlook.com
+ * Blog ：https://blog.csdn.net/h461415832
+ * *************************************************************************
+ */
+
+//********************************Jcenter 的配置信息**************************************
+apply plugin: 'com.github.dcendents.android-maven'
+
+apply plugin: 'com.jfrog.bintray'
+
+//发布到组织名称名字，比如api 'com.ds.lhm:lib_easysp:1.0.6'中的com.ds.lhm就是这里配置的。
+group = "com.ds.lhm"
+
+//项目引用的版本号，比如api 'com.ds.lhm:lib_easysp:1.0.6'中的1.0.6就是这里配置的。
+version = "1.0.0"//<*****有新版本 只需要修改这里即可*****>
+
+// 发布到JCenter上的项目名字
+def libName = 'EasyPermissionActivity'
+
+// 项目描述。
+def libDescription = 'Super simple Android6.0 dynamic permission application program'
+
+//远程 jFrog 仓库名称<根据仓库名称修改>
+def libRepository = "maven"
+
+//用户组织名称<如果没有配置组织这里不要填写>
+//def userOrganization = "ds"
+
+// 项目主页, 项目官网\或者github的主页
+def siteUrl = 'https://gitee.com/hmOS/EasyPermissionsActivity'
+
+//项目的版本控制地址,一般 github 的项目地址即可
+def gitUrl = 'https://gitee.com/hmOS/EasyPermissionsActivity.git'
+
+def authorId = "小明"
+
+def authorName = "林华明"
+
+def authorEmail = "linhuaming0603@outlook.com"
+
+// 配置maven库，生成POM.xml文件<基本不需要修改,只需要修改上面的变量即可>
+install {
+    repositories.mavenInstaller {
+        // 生成pom.xml和参数
+        pom {
+            project {
+                //打包格式为 aar<谷歌不推荐使用 jar>
+                packaging 'aar'
+                //项目描述。<可选>
+                description libDescription
+                //项目名称。<可选>
+                name libName
+                // 项目主页
+                url siteUrl
+                // 软件开源协议，现在一般都是Apache License2.0吧，<这里不需要修改>
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                //填写开发者基本信息
+                developers {
+                    developer {
+                        //作者昵称
+                        id authorId
+                        //作者名字
+                        name authorName
+                        //作者邮箱
+                        email authorEmail
+                    }
+                }
+                // SCM
+                scm {
+                    // Git仓库地址。
+                    connection gitUrl
+                    // Git仓库地址。
+                    developerConnection gitUrl
+                    // 项目主页。
+                    url siteUrl
+                }
+            }
+        }
+    }
+}
+
+// 生成 aar 包的task，<不需要修改>
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+// 生成jarDoc的task，<不需要修改>
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    options.encoding "UTF-8"
+    options.charSet 'UTF-8'
+    options.author true
+    options.version true
+    failOnError false // 忽略注释语法错误，如果用jdk1.8你的注释写的不规范就编译不过。
+}
+
+//生成javaDoc的jar，<不需要修改>
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+//上传到jcenter所需要的源码文件,<不需要修改>
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+//拷贝javadoc文件,<不需要修改>
+task copyDoc(type: Copy) {
+    from "${buildDir}/docs/"
+    into "docs"
+}
+
+//这里是读取Bintray相关的信息，我们上传项目到github上的时候会把gradle文件传上去，
+//所以不要把帐号密码的信息直接写在这里，写在local.properties中，这里动态读取。
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+bintray {
+    // jCenter 用户名 <去项目根目录下的 local.properties 新增/修改>
+    user = properties.getProperty("bintray.user")
+    // jCenter Api_Key <去项目根目录下的 local.properties 新增/修改>
+    key = properties.getProperty("bintray.apikey")
+
+    configurations = ['archives']
+
+    pkg {
+        repo = libRepository //Repository名字 需要自己在 jFrog Bintray 网站上先添加
+        name = libName //发布到JCenter上的项目名字，必须填写
+//        userOrg = userOrganization // jFrog Bintray 的组织 id <如果没有配置组织这里不要填写>
+        desc = libDescription
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = ["Apache-2.0"]
+        publish = true // 是否是公开项目。
+    }
+
+}

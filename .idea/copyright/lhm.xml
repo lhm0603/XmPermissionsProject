@@ -1,0 +1,6 @@
+<component name="CopyrightManager">
+  <copyright>
+    <option name="notice" value="**************************************************************************&#10;Copyright (c) &amp;#36;today.year&#10;File：&amp;#36;file.fileName   Project：&amp;#36;project.name  Module：&amp;#36;module.name &#10;LastModifiedTime：&amp;#36;file.lastModified.format(&quot;yyyy/MM/dd HH:mm&quot;)&#10;CurrentModifiedTime：&amp;#36;today.format(&quot;yyyy/MM/dd HH:mm&quot;)&#10;Author：Lin Hua Ming&#10;Email ： linhuaming@outlook.com&#10;Blog ：https://blog.csdn.net/h461415832&#10;**************************************************************************" />
+    <option name="myName" value="lhm" />
+  </copyright>
+</component>

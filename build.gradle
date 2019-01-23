@@ -3,14 +3,16 @@
 buildscript {
 
     repositories {
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
         google()
+        mavenCentral()
+        maven { url 'https://oss.jfrog.org/libs-snapshot' }
         jcenter()
-//        maven{
-//            url 'http://maven.aliyun.com/nexus/content/repositories/central/'
-//        }
+        maven { url 'https://jitpack.io' }
+        maven { url 'https://dl.bintray.com/linhuaming0603/maven' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.1'
+        classpath 'com.android.tools.build:gradle:3.3.0'
 
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
 
@@ -23,22 +25,15 @@ buildscript {
 
 allprojects {
     repositories {
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
         google()
+        mavenCentral()
+        maven { url 'https://oss.jfrog.org/libs-snapshot' }
         jcenter()
-//        maven{
-//            url 'http://maven.aliyun.com/nexus/content/repositories/central/'
-//        }
+        maven { url 'https://jitpack.io' }
+        maven { url 'https://dl.bintray.com/linhuaming0603/maven' }
     }
 
-
-    tasks.withType(Javadoc) {
-        options.addStringOption('Xdoclint:none', '-quiet') //忽略javadoc错误
-        options {
-            encoding "UTF-8"
-            charSet 'UTF-8'
-            links "http://docs.oracle.com/javase/8/docs/api"
-        }
-    }
 }
 
 task clean(type: Delete) {
