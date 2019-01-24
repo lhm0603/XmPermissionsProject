@@ -37,7 +37,7 @@ def libRepository = "maven"
 def siteUrl = 'https://gitee.com/hmOS/EasyPermissionsActivity'
 
 //项目的版本控制地址,一般 github 的项目地址即可
-def gitUrl = 'https://gitee.com/hmOS/EasyPermissionsActivity.git'
+def mavenRepositoryUrl = 'https://dl.bintray.com/linhuaming0603/maven'
 
 def authorId = "小明"
 
@@ -80,9 +80,9 @@ install {
                 // SCM
                 scm {
                     // Git仓库地址。
-                    connection gitUrl
+                    connection mavenRepositoryUrl
                     // Git仓库地址。
-                    developerConnection gitUrl
+                    developerConnection mavenRepositoryUrl
                     // 项目主页。
                     url siteUrl
                 }
@@ -145,7 +145,7 @@ bintray {
 //        userOrg = userOrganization // jFrog Bintray 的组织 id <如果没有配置组织这里不要填写>
         desc = libDescription
         websiteUrl = siteUrl
-        vcsUrl = gitUrl
+        vcsUrl = mavenRepositoryUrl
         licenses = ["Apache-2.0"]
         publish = true // 是否是公开项目。
     }

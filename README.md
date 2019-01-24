@@ -24,13 +24,13 @@ EasyPermissionsActivity 支持 Android 4.0及更高版本，但只有在 Android
 ```groovy
 dependencies {
     //其他依赖
-	implementation 'com.github.lhm:easypermissionsactivity:1.0.6'
+	implementation 'com.ds.lhm:easypermissionsactivity:1.0.0'
 }
 ```
 
 ### 使用 EasyPermissionsActivity
 
-<img src="http://ojx4zwltq.bkt.clouddn.com/20181022154755.png" width="33%" />
+![](https://raw.githubusercontent.com/lhm0603/FigureBed/master/image_20190124191501.png)
 
 如果你仅仅是想把所有需要动态申请的权限开启，那么您只需要简单使用 EasyPermissionsActivity 即可。
 
@@ -99,8 +99,6 @@ public class MainActivity extends EasyPermissionsActivity {
 
 ### 添加权限需求描述
 
-<img src="http://ojx4zwltq.bkt.clouddn.com/20181022160948.png" width="33%" />
-
 在 `super.requestPermissions();` 之前，使用 `super.addPermissionGroupDescription(@PermissionGroup String permissionGroup, String description)` 方法 添加权限用途描述
 
 ```java
@@ -113,8 +111,6 @@ super.requestPermissions();
 ```
 
 ### 修改权限提示名称
-
-<img src="http://ojx4zwltq.bkt.clouddn.com/20181022161007.png" width="33%" />
 
 如果您有更好的权限提示名称，可以在`super.requestPermissions();` 之前，调用 `updatePermissionGroupName(@PermissionGroup String permissionGroup, String name)` 方法 进行修改
 
