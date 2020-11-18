@@ -54,5 +54,5 @@ publish {
     artifactId = 'XmPermissions'
     publishVersion = "1.0.0" //版本号
     desc = "Android6.0权限申请框架" //描述，选填
-    website = "https://github.com/lhm0603/StartLinearSnapHelper"
+    website = "https://github.com/lhm0603/XmPermissionsProject"
 }
