@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">XmPermissions</string>
+    <string name="cancel">取消</string>
+    <string name="to_open">前往开启</string>
+    <string name="somePermissionsPromptAgain">部分权限被禁止且不再提示</string>
+    <string name="deniedPermissions">被禁止的权限有：%s</string>
+    <string name="userDeniedSomePermission">用户拒绝了部分权限</string>
+    <string name="userGrantedAllPermission">用户已授权所需要权限</string>
+    <string name="InvalidPermissionText">这是一个无效权限的字符串</string>
+    <string name="backSettingsDeniedPermissions">从设置回来也没有打开想要的权限</string>
+</resources>

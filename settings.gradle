@@ -1,1 +1,2 @@
-include ':example', ':easypermissionsactivity'
+include ':sample', ':library'
+rootProject.name = "XmPermissionsProject"
