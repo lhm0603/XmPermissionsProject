@@ -77,6 +77,7 @@ class XmPermissions private constructor(act: Activity) {
         if (permissionTemp.isEmpty()) {
             // 没有需要请求的权限，直接通过
             onRequestPermissionsCallback?.onGranted()
+            return
         }
         currentRequestPermissions = permissionTemp
         ActivityCompat.requestPermissions(activityTemp, permissionTemp, REQUEST_CODE_PERMISSIONS)

@@ -1,7 +1,7 @@
 # XmPermissions
 
 ## 项目介绍
-超级简单的 Android6.0动态权限申请程序
+Android动态权限申请框架
 
 Github地址：[https://github.com/lhm0603/XmPermissionsProject](https://github.com/lhm0603/XmPermissionsProject)
 
