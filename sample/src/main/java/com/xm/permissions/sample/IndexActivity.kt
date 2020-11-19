@@ -34,13 +34,13 @@ class IndexActivity : AppCompatActivity(), OnRequestPermissionsCallback {
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        // 必须重些该方法，并方法给XmPermissions
+        // 必须重些该方法，并将方法参数传递给XmPermissions
         xmPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        // 必须重些该方法，并方法给XmPermissions
+        // 必须重些该方法，并将方法参数传递给XmPermissions
         xmPermissions.onActivityResult(requestCode)
     }
 

@@ -1,38 +1,28 @@
-# EasyPermissionsActivity
+# XmPermissions
 
 ## 项目介绍
 超级简单的 Android6.0动态权限申请程序
 
-Github地址：https://github.com/lhm0603/EasyPermissionsActivity
-
-Gitee 地址：https://gitee.com/hmOS/EasyPermissionsActivity
+Github地址：[https://github.com/lhm0603/XmPermissionsProject](https://github.com/lhm0603/XmPermissionsProject)
 
 ### 使用说明
 
-EasyPermissionsActivity 支持 Android 4.0及更高版本，但只有在 Android6.0动态权限 Api 才有效。
+XmPermissions 支持 Android 5.0及更高版本，在 Android6.0之前的权限申请默认直接允许。
 
 ## 开始使用
 
-### 引入 EasyPermissionsActivity
+### 引入 XmPermissions
 
-这里告诉你如何在项目中引入 EasyPermissionsActivity
-
-#### 使用 Android Studio 或者其他 Gradle 构建的项目
-
-如果您使用Gradle构建，只需将以下行添加到文件的`dependencies`部分`build.gradle`：
+使用 `Android Studio` 或者其他 `Gradle` 构建项目
 
 ```groovy
 dependencies {
     //其他依赖
-	implementation 'com.ds.lhm:easypermissionsactivity:1.0.0'
+	implementation 'com.xm.permissions:XmPermissions:1.0.0'
 }
 ```
 
-### 使用 EasyPermissionsActivity
-
-![](https://raw.githubusercontent.com/lhm0603/FigureBed/master/image_20190124191501.png)
-
-如果你仅仅是想把所有需要动态申请的权限开启，那么您只需要简单使用 EasyPermissionsActivity 即可。
+### 使用 XmPermissions
 
 在AndroidMainifest.xml 文件中加入你的应用程序需要使用到的权限
 
@@ -52,136 +42,127 @@ dependencies {
 </manifest>
 ```
 
-在您需要动态权限申请的 Activity 中，让该 Activity 继承 EasyPermissionsActivity(继承自AppCompatActivity)，然后在需要动态权限申请的时刻(如:onCreate()方法中)，调用 `super.requestPermissions();` EasyPermissionsActivity 会自动帮您完成所有需要动态的权限的申请！
+在您需要申请权限的 Activity 中，创建XmPermissions实例，并实现必要的回调：
 
-```java
-public class MainActivity extends EasyPermissionsActivity {
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        //开始请求权限
-        super.requestPermissions();
+```kotlin
+class IndexActivity : AppCompatActivity() {
+    /**
+     * 创建XmPermissions实例
+     */
+    private val xmPermissions = XmPermissions.newInstance(this)
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_index)
+		// 按需请求需要的权限
+//        xmPermissions.requestPermissions(getString(R.string.InvalidPermissionText), Manifest.permission.CALL_PHONE, Manifest.permission.CAMERA)
+
+        // 请求配置文件中申明的所有权限（不推荐）
+        xmPermissions.requestAllPermissions()
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        // 必须重些该方法，并将方法参数传递给XmPermissions
+        xmPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        // 必须重些该方法，并将方法参数传递给XmPermissions
+        xmPermissions.onActivityResult(requestCode)
     }
 }
-
 ```
 
-你一定关心权限申请成功或者失败的回调方法，很简单，你可以在 EasyPermissionsActivity 的派生类中重写以下方法
+> PS：权限的申请建议遵循安卓规范，比如：
+>
+> 1. 需要某些权限才可以执行下一步动作之前，再去申请相关权限
+> 2. 在申请权限之前，可以通过弹框，或者全屏界面提示，明确提示用户接下来要申请的权限是作用于那些用途
+> 3. 只申请应用相关的权限，与本应用不相关的权限不要申请。
+> 4. 就算用户未同意权限，也尽可能的能够让用户在权限受限的情况下，可以体验无需权限的部分功能。
+>
+> 更多规范，请参考：[https://developer.android.google.cn/guide/topics/permissions/overview](https://developer.android.google.cn/guide/topics/permissions/overview)
 
-```java
-    @Override
-    protected void onRequestPermissionsBefore() {
-        //权限请求之前,该方法被调用
-    }
+
+
+你一定关心权限申请成功或者失败的回调方法，你可以通过设置XmPermissions的setOnRequestPermissionsCallback 设置权限申请的回调：
+
+```kotlin
+interface OnRequestPermissionsCallback {
+    /**
+     * 申请的权限都已授权
+     */
+    fun onGranted()
 
     /**
-     * 权限请求之后
-     *
-     * @param success true 成功/ false失败
+     * 部分申请的权限被拒绝
      */
-    @Override
-    protected void onRequestPermissionsAfter(boolean success) {
-        if (success) {
-            setContentView(R.layout.activity_main);
-            //do something...
-        } else {
-            Toast.makeText(this, "还有权限没有请求到!", Toast.LENGTH_SHORT).show();
-            //do something...
-        }
-    }
-```
-
-> 注意：
->
-> ​	如果一个应用程序先前已经请求并被授予 READ_EXTERNAL_STORAGE 权限，然后它再请求WRITE_EXTERNAL_STORAGE (同属于 STORAGE 权限组)，系统会立即授予该权限，不会再弹出权限授予询问的对话框。当然，这您不需要操心，EasyPermissionsActivity 已经帮您都做好了。
->
-> 如果您不清楚哪个权限属于哪个组，可以查阅 EasyPermissionsActivity 源码，我里面有将每个权限组的权限列出来。或者您也可以翻阅 [google API](https://developer.android.com/guide/topics/permissions/requesting.html#normal-dangerous) 。
-
-### 添加权限需求描述
-
-在 `super.requestPermissions();` 之前，使用 `super.addPermissionGroupDescription(@PermissionGroup String permissionGroup, String description)` 方法 添加权限用途描述
-
-```java
-//添加权限使用描述
-super.addPermissionGroupDescription(EasyPermissionActivity.STORAGE, "下载书籍，节省流量。");
-super.addPermissionGroupDescription(EasyPermissionActivity.LOCATION, "获取位置信息，智能推荐。");
-super.addPermissionGroupDescription(EasyPermissionActivity.PHONE, "检验IMEI码，保证账号安全，防止账号被盗。");
-//开始请求权限
-super.requestPermissions();
-```
-
-### 修改权限提示名称
-
-如果您有更好的权限提示名称，可以在`super.requestPermissions();` 之前，调用 `updatePermissionGroupName(@PermissionGroup String permissionGroup, String name)` 方法 进行修改
-
-```java
-//修改权限提示名称
-super.updatePermissionGroupName(EasyPermissionActivity.STORAGE, "文件存储");
-super.updatePermissionGroupName(EasyPermissionActivity.LOCATION, "位置信息");
-//开始请求权限
-super.requestPermissions();
-```
-
-### 无限(必须)请求权限，直到所有权限都通过
-
-如果你的 App 需要获取所有权限后方可运行，则您可以在`super.requestPermissions();` 之前，调用 `super.isRequestAgain(true);` 方法 开启无限模式（即：没有取消按钮，只有所有权限都被允许后才会调用 `onRequiresPermissionsAfter`）。
-
-```java
-//开启无限请求权限模式
-isRequestAgain(true);
-//开始请求权限
-super.requestPermissions();
-```
-
-## Example 完整的代码：
-
-```java
-
-public class MainActivity extends EasyPermissionsActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        //添加存储权限使用用途描述
-        super.addPermissionGroupDescription(EasyPermissionActivity.STORAGE, "下载书籍，节省流量。");
-        super.addPermissionGroupDescription(EasyPermissionActivity.LOCATION, "获取位置信息，智能推荐。");
-        super.addPermissionGroupDescription(EasyPermissionActivity.PHONE, "检验IMEI码，保证账号安全，防止账号被盗。");
-        super.updatePermissionGroupName(EasyPermissionActivity.STORAGE, "文件存储");
-        super.updatePermissionGroupName(EasyPermissionActivity.LOCATION, "位置信息");
-        //开启无限请求权限模式
-        isRequestAgain(true);
-        //开始请求权限
-        super.requestPermissions();
-    }
-
-    @Override
-    protected void onRequestPermissionsBefore() {
-        //权限请求之前,该方法被调用
-    }
+    fun onDenied(deniedPermissions: Array<String>)
 
     /**
-     * 权限请求之后
-     *
-     * @param success true 成功/ false失败
+     * 部分申请的权限被永久拒绝
      */
-    @Override
-    protected void onRequestPermissionsAfter(boolean success) {
-        if (success) {
-            setContentView(R.layout.activity_main);
-            //do something...
-        } else {
-            Toast.makeText(this, "还有权限没有请求到!", Toast.LENGTH_SHORT).show();
-            finish();
-        }
+    fun onPermanentlyDenied(deniedPermissions: Array<String>)
+
+    /**
+     * 从设置回到应用，希望被授予的权限还没有被授予
+     */
+    fun onSettingBackDenied(deniedPermissions: Array<String>)
+}
+```
+
+
+
+让Activity实现该接口或创建该接口的实现类等，并重些响应方法：
+
+```kotlin
+// Activity 实现了 OnRequestPermissionsCallback 接口，并重写了相关函数
+class IndexActivity : AppCompatActivity(), OnRequestPermissionsCallback {
+    private val xmPermissions = XmPermissions.newInstance(this)
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_index)
+        // 设置权限请求回调监听
+        xmPermissions.setOnRequestPermissionsCallback(this)
+        xmPermissions.requestAllPermissions()
+    }
+	
+    // 省略部分代码...
+    
+    // 申请的权限用户都已授权，可以开心的搞事情了
+    override fun onGranted() {
+        Toast.makeText(this, R.string.userGrantedAllPermission, Toast.LENGTH_LONG).show()
+    }
+
+    // 申请的权限部分被用户拒绝，需要权限的功能受限，可以友好的提示用户
+    override fun onDenied(deniedPermissions: Array<String>) {
+        Toast.makeText(this, R.string.userDeniedSomePermission, Toast.LENGTH_LONG).show()
+    }
+
+    // 申请的权限部分被用户多次拒绝或用户直接拒绝并勾选了不再提示。意味着下次被永久拒绝的权限不会再有系统权限弹框，而是直接回调该方法。这里建议可以再次告知用户，为什么需要该权限，没有该权限功能受阻等。并提供UI让用户可以跳转到设置界面去手动打开相应的权限。可以调用 xmPermissions.jumpToSettingPermissionPage() ，内部实现了跳转到应用设置界面的函数。并且对从设置回到应用也做了回调处理
+    override fun onPermanentlyDenied(deniedPermissions: Array<String>) {
+        AlertDialog.Builder(this).setTitle(R.string.somePermissionsPromptAgain)
+                .setMessage(String.format(Locale.CHINA, getString(R.string.deniedPermissions), deniedPermissions.contentToString()))
+                .setPositiveButton(R.string.to_open) { _, _ ->
+                    xmPermissions.jumpToSettingPermissionPage()
+                }.setNegativeButton(R.string.cancel) { _, _ ->
+                    onDenied(deniedPermissions)
+                }.setCancelable(false).show()
+    }
+
+    // 该方法的回调前提是调用过 xmPermissions.jumpToSettingPermissionPage()，并且用户到了设置界面并没有打开所需要的权限，当用户从设置回到应用时，该方法会被执行。同样意味着权限没有申请成功
+    override fun onSettingBackDenied(deniedPermissions: Array<String>) {
+        Toast.makeText(this, R.string.backSettingsDeniedPermissions, Toast.LENGTH_LONG).show()
     }
 }
-
 ```
 
 #### 许可证
 
 ```
-Copyright 2018 Huaming Lin.
+Copyright 2020 Huaming Lin.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
