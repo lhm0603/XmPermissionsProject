@@ -18,7 +18,7 @@ XmPermissions 支持 Android 5.0及更高版本，在 Android6.0之前的权限�
 ```groovy
 dependencies {
     //其他依赖
-	implementation 'com.xm.permissions:XmPermissions:1.0.1'
+	implementation 'com.xm.permissions:XmPermissions:1.0.2'
 }
 ```
 

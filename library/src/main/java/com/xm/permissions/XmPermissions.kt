@@ -31,6 +31,7 @@ import java.util.*
  */
 class XmPermissions private constructor(act: Activity) {
     companion object {
+        @JvmStatic
         fun newInstance(activity: Activity): XmPermissions {
             Objects.requireNonNull(activity)
             return XmPermissions(activity)
