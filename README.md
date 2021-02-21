@@ -18,7 +18,7 @@ XmPermissions 支持 Android 5.0及更高版本，在 Android6.0之前的权限�
 ```groovy
 dependencies {
     //其他依赖
-	implementation 'com.xm.permissions:XmPermissions:1.0.2'
+	implementation 'com.xm.permissions:XmPermissions:1.1.0'
 }
 ```
 
@@ -45,32 +45,13 @@ dependencies {
 在您需要申请权限的 Activity 中，创建XmPermissions实例，并实现必要的回调：
 
 ```kotlin
-class IndexActivity : AppCompatActivity() {
-    /**
-     * 创建XmPermissions实例
-     */
-    private val xmPermissions = XmPermissions.newInstance(this)
-
+class IndexActivity : AppCompatActivity(), OnRequestPermissionsCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_index)
-		// 按需请求需要的权限
-//        xmPermissions.requestPermissions(getString(R.string.InvalidPermissionText), Manifest.permission.CALL_PHONE, Manifest.permission.CAMERA)
-
-        // 请求配置文件中申明的所有权限（不推荐）
-        xmPermissions.requestAllPermissions()
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        // 必须重些该方法，并将方法参数传递给XmPermissions
-        xmPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        // 必须重些该方法，并将方法参数传递给XmPermissions
-        xmPermissions.onActivityResult(requestCode)
+        XmPermissions.newInstance(this).setOnRequestPermissionsCallback(this)
+                .requestPermissions(getString(R.string.InvalidPermissionText), Manifest.permission.CALL_PHONE, Manifest.permission.CAMERA)
+//                .requestAllPermissions()
     }
 }
 ```
@@ -119,42 +100,32 @@ interface OnRequestPermissionsCallback {
 ```kotlin
 // Activity 实现了 OnRequestPermissionsCallback 接口，并重写了相关函数
 class IndexActivity : AppCompatActivity(), OnRequestPermissionsCallback {
-    private val xmPermissions = XmPermissions.newInstance(this)
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_index)
-        // 设置权限请求回调监听
-        xmPermissions.setOnRequestPermissionsCallback(this)
-        xmPermissions.requestAllPermissions()
+        XmPermissions.newInstance(this).setOnRequestPermissionsCallback(this)
+                .requestPermissions(getString(R.string.InvalidPermissionText), Manifest.permission.CALL_PHONE, Manifest.permission.CAMERA)
+//                .requestAllPermissions()
     }
-	
-    // 省略部分代码...
-    
-    // 申请的权限用户都已授权，可以开心的搞事情了
+
     override fun onGranted() {
         Toast.makeText(this, R.string.userGrantedAllPermission, Toast.LENGTH_LONG).show()
     }
 
-    // 申请的权限部分被用户拒绝，需要权限的功能受限，可以友好的提示用户
     override fun onDenied(deniedPermissions: Array<String>) {
         Toast.makeText(this, R.string.userDeniedSomePermission, Toast.LENGTH_LONG).show()
     }
 
-    // 申请的权限部分被用户多次拒绝或用户直接拒绝并勾选了不再提示。意味着下次被永久拒绝的权限不会再有系统权限弹框，
-    // 而是直接被拒绝，这里建议可以再次告知用户，为什么需要该权限，没有该权限功能受阻等。并提供UI让用户可以跳转到设置界面去手动打开相应的权限。
-    // 可以调用 xmPermissions.jumpToSettingPermissionPage() ，内部实现了跳转到应用设置界面的函数。并且对从设置回到应用也做了回调处理
     override fun onPermanentlyDenied(deniedPermissions: Array<String>) {
         AlertDialog.Builder(this).setTitle(R.string.somePermissionsPromptAgain)
                 .setMessage(String.format(Locale.CHINA, getString(R.string.deniedPermissions), deniedPermissions.contentToString()))
                 .setPositiveButton(R.string.to_open) { _, _ ->
-                    xmPermissions.jumpToSettingPermissionPage()
+                    XmPermissions.jumpToSettingPermissionPage(this)
                 }.setNegativeButton(R.string.cancel) { _, _ ->
                     onDenied(deniedPermissions)
                 }.setCancelable(false).show()
     }
 
-    // 该方法的回调前提是调用过 xmPermissions.jumpToSettingPermissionPage()，并且用户到了设置界面并没有打开所需要的权限，当用户从设置回到应用时，该方法会被执行。同样意味着权限没有申请成功
     override fun onSettingBackDenied(deniedPermissions: Array<String>) {
         Toast.makeText(this, R.string.backSettingsDeniedPermissions, Toast.LENGTH_LONG).show()
     }
