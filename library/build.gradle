@@ -11,7 +11,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
-        versionName "1.0"
+        versionName "1.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -52,7 +52,7 @@ publish {
     userOrg = "linhuaming0603"
     groupId = "com.xm.permissions"
     artifactId = 'XmPermissions'
-    publishVersion = "1.0.2" //版本号
+    publishVersion = "1.1.0" //版本号
     desc = "Android6.0权限申请框架" //描述，选填
     website = "https://github.com/lhm0603/XmPermissionsProject"
 }

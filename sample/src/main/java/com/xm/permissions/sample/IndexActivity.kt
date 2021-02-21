@@ -9,7 +9,7 @@
 
 package com.xm.permissions.sample
 
-import android.content.Intent
+import android.Manifest
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -22,26 +22,12 @@ import java.util.*
  * 示例代码
  */
 class IndexActivity : AppCompatActivity(), OnRequestPermissionsCallback {
-    private val xmPermissions = XmPermissions.newInstance(this)
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_index)
-        xmPermissions.setOnRequestPermissionsCallback(this)
-//        xmPermissions.requestPermissions(getString(R.string.InvalidPermissionText), Manifest.permission.CALL_PHONE, Manifest.permission.CAMERA)
-        xmPermissions.requestAllPermissions()
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        // 必须重些该方法，并将方法参数传递给XmPermissions
-        xmPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        // 必须重些该方法，并将方法参数传递给XmPermissions
-        xmPermissions.onActivityResult(requestCode)
+        XmPermissions.newInstance(this).setOnRequestPermissionsCallback(this)
+                .requestPermissions(getString(R.string.InvalidPermissionText), Manifest.permission.CALL_PHONE, Manifest.permission.CAMERA)
+//                .requestAllPermissions()
     }
 
     override fun onGranted() {
@@ -56,7 +42,7 @@ class IndexActivity : AppCompatActivity(), OnRequestPermissionsCallback {
         AlertDialog.Builder(this).setTitle(R.string.somePermissionsPromptAgain)
                 .setMessage(String.format(Locale.CHINA, getString(R.string.deniedPermissions), deniedPermissions.contentToString()))
                 .setPositiveButton(R.string.to_open) { _, _ ->
-                    xmPermissions.jumpToSettingPermissionPage()
+                    XmPermissions.jumpToSettingPermissionPage(this)
                 }.setNegativeButton(R.string.cancel) { _, _ ->
                     onDenied(deniedPermissions)
                 }.setCancelable(false).show()
